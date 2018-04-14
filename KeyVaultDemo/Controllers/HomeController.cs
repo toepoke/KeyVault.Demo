@@ -21,11 +21,11 @@ namespace KeyVaultDemo.Controllers {
 			AuthenticationCallback keyVaultCallback = new AuthenticationCallback(GetAccessTokenAsync);
 			KeyVaultClient keyVaultClient = new KeyVaultClient(keyVaultCallback);
 
-			string dbConnectionSecretId = WebConfigurationManager.AppSettings["DbConnectionSecretIdentifier"];
-			string adminPasswordSecretId = WebConfigurationManager.AppSettings["AdminPasswordSecretIdentifier"];
+			string usernameSecretId = WebConfigurationManager.AppSettings["UsernameSecretIdentifier"];
+			string passwordSecretId = WebConfigurationManager.AppSettings["PasswordSecretIdentifier"];
 
-			SecretBundle keyValueDbPassphraseSecret = await keyVaultClient.GetSecretAsync(dbConnectionSecretId);
-			SecretBundle keyValueAdminPasswordSecret = await keyVaultClient.GetSecretAsync(adminPasswordSecretId);
+			SecretBundle keyValueDbPassphraseSecret = await keyVaultClient.GetSecretAsync(usernameSecretId);
+			SecretBundle keyValueAdminPasswordSecret = await keyVaultClient.GetSecretAsync(passwordSecretId);
 
 			return Ok(new {
 				DbPassphrase = keyValueDbPassphraseSecret.Value,
