@@ -16,7 +16,8 @@ namespace KeyVaultDemo.Controllers {
 	// localhost:port/api/home
 	[RoutePrefix("api/")]
 	public class HomeController : ApiController {
-		// GET api
+
+		// localhost:port/api/home
 		public async Task<IHttpActionResult> Get() {
 			AuthenticationCallback keyVaultCallback = new AuthenticationCallback(GetAccessTokenAsync);
 			KeyVaultClient keyVaultClient = new KeyVaultClient(keyVaultCallback);
@@ -38,7 +39,7 @@ namespace KeyVaultDemo.Controllers {
 			var clientId = WebConfigurationManager.AppSettings["ClientID"];
 			var clientSecret = WebConfigurationManager.AppSettings["ClientSecret"];
 
-			var context = new Microsoft.IdentityModel.Clients.ActiveDirectory.AuthenticationContext(authority);
+			var context = new AuthenticationContext(authority);
 			ClientCredential credential = new ClientCredential(clientId, clientSecret);
 			AuthenticationResult result = await context.AcquireTokenAsync(resource, credential);
 
